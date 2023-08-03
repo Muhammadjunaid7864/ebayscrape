@@ -1,0 +1,135 @@
+{% extends "base.html"%}
+{% block header %}
+{{ super() }}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">ebay Product</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{url_for('ebay_scrape_bp.ebay_scrape_data')}}">ebay
+                        Product</a></li>
+                <li class="breadcrumb-item active">Tables</li>
+            </ol>
+            <!-- Navbar Search-->
+
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="location" class="form-label text-center">Location</label>
+                    <div class="input-group">
+                        <select class="form-control item_location" id="location">
+                            <option selected="selected" value="98">Default</option>
+                            <option value="1">US Only</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="exclude_location" class="form-label text-center">Exclude Location</label>
+                    <div class="input-group">
+                        <select class="form-control exclude_location" id="exclude_location" multiple="multiple">
+                            <option selected="selected" value="1">United states</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="condition" class="form-label">Condition</label>
+                    <div class="input-group">
+                        <select class="form-control item_condition" id="condition" multiple="multiple">
+                            <option value="1000">New</option>
+                            <option value="1500">Open box</option>
+                            <option value="2010">Excellent - Refurbished </option>
+                            <option value="2020">Very Good - Refurbished</option>
+                            <option value="2030">Good - Refurbished</option>
+                            <option value="3000">Used</option>
+                            <option value="7000">For part or not working</option>
+                            <option value="10">Not specified</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="Buy_format" class="form-label">Buying Format</label>
+                    <div class="input-group">
+                        <select class="form-control item_buy_format" id="buy_format">
+                            <option selected="selected" value="LH_All=1">All listings</option>
+                            <option value="LH_Auction=1">Action</option>
+                            <option value="LH_BIN=1">Buy it now</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="min" class="form-label">Price from</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$ min</span>
+                        <input class="form-control" type="text" name="min" id="min">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="min" class="form-label">Price To</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$ max</span>
+                        <input class="form-control" type="text" name="max" id="max">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label" for="Sold_items">Sold item</label>
+                    <div class="form-check input-group">
+                        <input class="form-check-input" type="checkbox" value="LH_Sold=1" id="item_sold">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group">
+                        <input class="form-control" id="search_input" name="searchtext" type="text"
+                            placeholder="Search for..." />
+                        <button type="button" class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                                class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" type="button" id="btn_submit_search">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navbar-->
+        <!--                        <div class="card mb-4">-->
+        <!--                            <div class="card-body">-->
+        <!--                                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the-->
+        <!--                                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>-->
+        <!--                                .-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <div class="card mb-4 mt-3">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                <!--                                DataTable Example-->
+            </div>
+            <div class="card-body">
+                <table id="datatables" class="display dataTable">
+                    <thead>
+                        <tr>
+                            <th>Product Title</th>
+                            <th>Price</th>
+                            <th>Image</th>
+                            <th>Condition</th>
+                            <th>location</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+</div>
+</main>
+
+{% endblock header %}
+
+{% block footer %}
+{{super()}}
+<script src="{{url_for('static', filename='js/datatable.js')}}"></script>
+{%endblock%}
